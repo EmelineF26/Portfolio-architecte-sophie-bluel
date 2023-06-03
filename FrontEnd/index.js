@@ -24,16 +24,17 @@ function renderWork(work) {
 
 
 //- 3 - Récupération des catégories et réalisation du filtre
-	//Génération du tableau de Catégories uniques
+//-Génération du tableau de Catégories uniques
 async function collectUniqueCategories() {
-	//Fonction fetch sur l'API Catégories pour récuperer les catégories
+//-Fonction fetch sur l'API Catégories pour récuperer les catégories
 	const response = await fetch("http://localhost:5678/api/categories");
 	const categories = await response.json();
-	//Création du tableau de catégories sans doublon grace à Set()
+//-Création du tableau de catégories sans doublon grace à Set()
 	const uniqueCategories = new Set(categories);
 	// console.log(categories);
 	// console.log(uniqueCategories);
 	const filtersContainer = document.createElement('div');
+	filtersContainer.setAttribute('id','filters');
 	let gallery = document.querySelector('.gallery');
 	let portfolio = document.querySelector('#portfolio');
 	portfolio.insertBefore(filtersContainer, gallery);
@@ -41,48 +42,56 @@ async function collectUniqueCategories() {
   }
   const toto = collectUniqueCategories();
   toto.then(param => {
-	for (let item of param) console.log(item.name);
-  });
+	for (let item of param) 
+	{
+		console.log(item.name);
+		const button = document.createElement('button');
+		let filtersContainer = document.querySelector('#filters');
+		filtersContainer.appendChild(button);
+	}
+	});
   console.log(toto);
 
-//Fonction pour créer les boutons des filtres associés aux catégories
-async function createFilterButtons(category) {
-		console.log('titi', categoriesUniques);
-	categoriesUniques.forEach((category) => {
-		console.log('tata', category);
-		createFilterButton(category)
-	})
+//-Fonction pour créer les boutons des filtres associés aux catégories
+const createFilterButtons = document.querySelector('div');
 
-	const createFilterButton = (category) => {
-		console.log('toto');
-	  const button = document.createElement('button');
-	  button.innerText = category.title;
-	  button.addEventListener('click', function() {
-		const figures = document.querySelectorAll('.projet');
-		for (let figure of figures) {
-		  if (figure.getAttribute('data-category-id') == category.id || category === null) {
-			//Affiche tous les blocs catégories
-			figure.style.display = 'block';
-		  } else {
-			figure.style.display = 'none';
-		  }
-		}
-	  });
-	  return button;
-	};
+button.textContent = "Tous";
+button.addEventListener('click', function() {
 
-	//Bouton "Toutes les catégories"
-	const tousFilters = createFilterButton("Tous", null);
-	filtersContainer.appendChild(tousFilters);
+});
+createFilterButtons.appendChild(button);
+//  async function createFilterButtons(category) {
+//  		console.log('titi', categoriesUniques);
+//  	categoriesUniques.forEach((category) => {
+//  		console.log('tata', category);
+//  		createFilterButtons(category)
+//  	})}
+
+ 	const createFilterButton = (category) => {
+ 		console.log('toto');
+ 	  const button = document.createElement('button');
+ 	  button.innerText = category.title;
+ 	  button.addEventListener('click', function() {
+ 		const figures = document.querySelectorAll('.projet');
+ 		for (let figure of figures) {
+ 		  if (figure.getAttribute('data-category-id') == category.id || category === null) {
+ 			//Affiche tous les blocs catégories
+ 			figure.style.display = 'block';
+ 		  } else {
+ 			figure.style.display = 'none';
+ 		  }
+ 		}
+ 	  });
+ 	  return button;
+ 	};
+
+//-Bouton "Toutes les catégories"
+ 	// const tousFilters = createFilterButtons("Tous", null);
+ 	// filtersContainer.appendChild(tousFilters);
   
-	//Boutons pour chaque catégorie unique
-	categoriesUniques.forEach(function(category) {
-	  const button = createFilterButton(category.name, category);
-	  button.setAttribute('data-category-id', category.id);
-	  filtersContainer.appendChild(button);
-	});
-  }
-
-  if (!token) {
-	createFilterButtons();
-  }
+//-Boutons pour chaque catégorie unique
+ 	// categoriesUniques.forEach(function(category) {
+ 	// //   const button = createFilterButtons(category.name, category);
+ 	//   button.setAttribute('data-category-id', category.id);
+ 	//   filtersContainer.appendChild(button);
+ 	// });

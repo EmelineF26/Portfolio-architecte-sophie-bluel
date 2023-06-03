@@ -31,8 +31,7 @@ async function collectUniqueCategories() {
 	const categories = await response.json();
 //-Création du tableau de catégories sans doublon grace à Set()
 	const uniqueCategories = new Set(categories);
-	// console.log(categories);
-	// console.log(uniqueCategories);
+//-Création d'une "div" qui contiendra nos boutons filtres
 	const filtersContainer = document.createElement('div');
 	filtersContainer.setAttribute('id','filters');
 	let gallery = document.querySelector('.gallery');
@@ -45,21 +44,20 @@ async function collectUniqueCategories() {
 	for (let item of param) 
 	{
 		console.log(item.name);
-		const button = document.createElement('button');
-		let filtersContainer = document.querySelector('#filters');
-		filtersContainer.appendChild(button);
+//-Création des boutons filtres
+	const button = document.createElement('button');
+	let filtersContainer = document.querySelector('#filters');
+	filtersContainer.appendChild(button);
+	button.textContent = "Tous";
+	button.addEventListener('click', function() {
+	const figures = document.querySelectorAll('figure');
+		for (let figure of figures) {
+			figure.style.display = 'block';
+			}})
 	}
-	});
-  console.log(toto);
-
+		});
 //-Fonction pour créer les boutons des filtres associés aux catégories
-const createFilterButtons = document.querySelector('div');
 
-button.textContent = "Tous";
-button.addEventListener('click', function() {
-
-});
-createFilterButtons.appendChild(button);
 //  async function createFilterButtons(category) {
 //  		console.log('titi', categoriesUniques);
 //  	categoriesUniques.forEach((category) => {

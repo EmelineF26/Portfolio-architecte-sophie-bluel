@@ -39,57 +39,25 @@ async function collectUniqueCategories() {
 	portfolio.insertBefore(filtersContainer, gallery);
 	return uniqueCategories;
   }
-  const toto = collectUniqueCategories();
-  toto.then(param => {
-	for (let item of param) 
-	{
-		console.log(item.name);
 //-Création des boutons filtres
+  const categories = collectUniqueCategories();
+  categories.then(categories => {
 	const button = document.createElement('button');
 	let filtersContainer = document.querySelector('#filters');
 	filtersContainer.appendChild(button);
 	button.textContent = "Tous";
+	for (let category of categories) 
+	{
+		console.log(category.name);
+		const button = document.createElement('button');
+		let filtersContainer = document.querySelector('#filters');
+		filtersContainer.appendChild(button);
+		button.innerText = category.name;
+	}
+	
 	button.addEventListener('click', function() {
 	const figures = document.querySelectorAll('figure');
 		for (let figure of figures) {
 			figure.style.display = 'block';
 			}})
-	}
 		});
-//-Fonction pour créer les boutons des filtres associés aux catégories
-
-//  async function createFilterButtons(category) {
-//  		console.log('titi', categoriesUniques);
-//  	categoriesUniques.forEach((category) => {
-//  		console.log('tata', category);
-//  		createFilterButtons(category)
-//  	})}
-
- 	const createFilterButton = (category) => {
- 		console.log('toto');
- 	  const button = document.createElement('button');
- 	  button.innerText = category.title;
- 	  button.addEventListener('click', function() {
- 		const figures = document.querySelectorAll('.projet');
- 		for (let figure of figures) {
- 		  if (figure.getAttribute('data-category-id') == category.id || category === null) {
- 			//Affiche tous les blocs catégories
- 			figure.style.display = 'block';
- 		  } else {
- 			figure.style.display = 'none';
- 		  }
- 		}
- 	  });
- 	  return button;
- 	};
-
-//-Bouton "Toutes les catégories"
- 	// const tousFilters = createFilterButtons("Tous", null);
- 	// filtersContainer.appendChild(tousFilters);
-  
-//-Boutons pour chaque catégorie unique
- 	// categoriesUniques.forEach(function(category) {
- 	// //   const button = createFilterButtons(category.name, category);
- 	//   button.setAttribute('data-category-id', category.id);
- 	//   filtersContainer.appendChild(button);
- 	// });

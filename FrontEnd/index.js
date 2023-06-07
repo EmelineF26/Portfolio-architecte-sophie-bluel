@@ -58,7 +58,12 @@ async function collectUniqueCategories() {
 		const button = document.createElement('button');
 		let filtersContainer = document.querySelector('#filters');
 		filtersContainer.appendChild(button);
-		button.innerText = category.name;
+		console.log(category.id);
+		if (category.id == 3) {
+			button.innerHTML = "Hôtels & Restaurants";
+		} else {
+			button.innerText = category.name;
+		}
 		button.addEventListener('click', function() {
 			const sectionGallery = document.querySelector(".gallery");
 			sectionGallery.innerHTML = "";

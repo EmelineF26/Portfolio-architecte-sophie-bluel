@@ -1,7 +1,10 @@
 //- 1 - Appel de l'API à l'aide de fetch pour récupérer les projets
-async function getWorks() {
+async function getWorks(idCategory = null) {
   const response = await fetch('http://localhost:5678/api/works');
-  const data = await response.json();
+  let data = await response.json();
+  if (idCategory) {
+ 	data = data.filter(work => work.categoryId == idCategory);
+  }
   data.forEach((work) => {
 	renderWork(work);
 })}
@@ -46,6 +49,9 @@ async function collectUniqueCategories() {
 	let filtersContainer = document.querySelector('#filters');
 	filtersContainer.appendChild(button);
 	button.textContent = "Tous";
+	button.addEventListener('click', function () {
+		getWorks();
+	})
 	for (let category of categories) 
 	{
 		console.log(category.name);
@@ -53,11 +59,15 @@ async function collectUniqueCategories() {
 		let filtersContainer = document.querySelector('#filters');
 		filtersContainer.appendChild(button);
 		button.innerText = category.name;
-	}
+		button.addEventListener('click', function() {
+			const sectionGallery = document.querySelector(".gallery");
+			sectionGallery.innerHTML = "";
+			getWorks(category.id);
+		})
+	}})
 	
-	button.addEventListener('click', function() {
-	const figures = document.querySelectorAll('figure');
-		for (let figure of figures) {
-			figure.style.display = 'block';
-			}})
-		});
+	// const figures = document.querySelectorAll('figure');
+	// 	for (let figure of figures) {
+	// 		figure.style.display = 'block';
+	// 		}})
+	// 	});

@@ -54,7 +54,7 @@ async function collectUniqueCategories() {
 	})
 	for (let category of categories) 
 	{
-		console.log(category.name);
+		// console.log(category.name);
 		const button = document.createElement('button');
 		let filtersContainer = document.querySelector('#filters');
 		filtersContainer.appendChild(button);
@@ -70,9 +70,3 @@ async function collectUniqueCategories() {
 			getWorks(category.id);
 		})
 	}})
-	
-	// const figures = document.querySelectorAll('figure');
-	// 	for (let figure of figures) {
-	// 		figure.style.display = 'block';
-	// 		}})
-	// 	});

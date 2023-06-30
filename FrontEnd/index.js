@@ -54,10 +54,10 @@ async function collectUniqueCategories() {
 	})
 	for (let category of categories) 
 	{
-		// console.log(category.name);
 		const button = document.createElement('button');
 		let filtersContainer = document.querySelector('#filters');
 		filtersContainer.appendChild(button);
+		
 		console.log(category.id);
 		if (category.id == 3) {
 			button.innerHTML = "Hôtels & Restaurants";
@@ -70,3 +70,25 @@ async function collectUniqueCategories() {
 			getWorks(category.id);
 		})
 	}})
+
+//- 4 - Création de la modale
+
+let modal = document.getElementById("modal");
+let modalClose = document.getElementById("modal-close");
+
+//-Fonction pour afficher la boîte modale
+function showModal() {
+  modal.style.display = "block";
+}
+
+//-Fonction pour masquer la boîte modale
+function hideModal() {
+  modal.style.display = "none";
+}
+
+//-Ajoutez un gestionnaire d'événements au bouton de fermeture pour masquer la boîte modale
+modalClose.addEventListener("click", hideModal);
+
+//-Exemple d'utilisation : affichez la boîte modale lorsque le bouton est cliqué
+let openModalButton = document.getElementById("open-modal-button");
+openModalButton.addEventListener("click", showModal);

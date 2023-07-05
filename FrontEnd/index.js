@@ -1,7 +1,9 @@
 //- 1 - Appel de l'API à l'aide de fetch pour récupérer les projets
+let workList;
 async function getWorks(idCategory = null) {
   const response = await fetch('http://localhost:5678/api/works');
   let data = await response.json();
+  workList = data;
   if (idCategory) {
  	data = data.filter(work => work.categoryId == idCategory);
   }
@@ -57,7 +59,7 @@ async function collectUniqueCategories() {
 		const button = document.createElement('button');
 		let filtersContainer = document.querySelector('#filters');
 		filtersContainer.appendChild(button);
-		
+
 		console.log(category.id);
 		if (category.id == 3) {
 			button.innerHTML = "Hôtels & Restaurants";
@@ -78,7 +80,33 @@ let modalClose = document.getElementById("modal-close");
 
 //-Fonction pour afficher la boîte modale
 function showModal() {
-  modal.style.display = "block";
+  	modal.style.display = "block";
+	// galleryItems.forEach(function(work) {
+    // let galleryItems = document.createElement("div");
+    // galleryItems.classList.add("gallery-item");
+	// modalContent.appendChild(galleryItems);
+	displayWorkModal(workList);
+//   });
+}
+
+function displayWorkModal (workList) {
+	console.log(workList);
+	let modalContainer = document.getElementById("modal_container1");
+	workList.forEach(work => {
+		let figure = document.createElement("div");
+		figure.style.position = "relative";
+		figure.style.width = "17%";
+		let image = document.createElement("img");
+		image.src = work.imageUrl;
+		image.alt = work.title;
+		image.classList.add("style-image");
+		// modalContainer.appendChild(image);
+		let icon = document.createElement("i");
+		icon.classList.add("fa-solid", "fa-trash");
+		figure.appendChild(image);
+		figure.appendChild(icon);
+		modalContainer.appendChild(figure);
+	})
 }
 
 //-Fonction pour masquer la boîte modale
@@ -86,9 +114,9 @@ function hideModal() {
   modal.style.display = "none";
 }
 
-//-Ajoutez un gestionnaire d'événements au bouton de fermeture pour masquer la boîte modale
+//-Ajouter un gestionnaire d'événements au bouton de fermeture pour masquer la boîte modale
 modalClose.addEventListener("click", hideModal);
 
-//-Exemple d'utilisation : affichez la boîte modale lorsque le bouton est cliqué
+//-Exemple d'utilisation : afficher la boîte modale lorsque le bouton est cliqué
 let openModalButton = document.getElementById("open-modal-button");
 openModalButton.addEventListener("click", showModal);

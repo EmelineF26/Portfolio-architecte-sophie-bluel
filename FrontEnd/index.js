@@ -1,5 +1,6 @@
 //- 1 - Appel de l'API à l'aide de fetch pour récupérer les projets
 let workList;
+let categoryList;
 async function getWorks(idCategory = null) {
   const response = await fetch('http://localhost:5678/api/works');
   let data = await response.json();
@@ -27,15 +28,15 @@ function renderWork(work) {
 	// console.log(work);
 }
 
-
 //- 3 - Récupération des catégories et réalisation du filtre
 //-Génération du tableau de Catégories uniques
 async function collectUniqueCategories() {
 //-Fonction fetch sur l'API Catégories pour récuperer les catégories
 	const response = await fetch("http://localhost:5678/api/categories");
 	const categories = await response.json();
-//-Création du tableau de catégories sans doublon grace à Set()
+//-Création du tableau de catégories sans doublon grace à Set
 	const uniqueCategories = new Set(categories);
+	categoryList = categories;
 //-Création d'une "div" qui contiendra nos boutons filtres
 	const filtersContainer = document.createElement('div');
 	filtersContainer.setAttribute('id','filters');
@@ -81,21 +82,54 @@ let modalClose = document.getElementById("modal-close");
 //-Fonction pour afficher la boîte modale
 function showModal() {
   	modal.style.display = "block";
-	// galleryItems.forEach(function(work) {
-    // let galleryItems = document.createElement("div");
-    // galleryItems.classList.add("gallery-item");
-	// modalContent.appendChild(galleryItems);
 	displayWorkModal(workList);
-//   });
 }
+function switchModalView(viewNumber) {
+	let view1 = document.getElementById("modal_view1");
+	let view2 = document.getElementById("modal_view2");
+	let arrow = document.getElementById("arrow");
+		if (viewNumber == 1) {
+			view1.style.visibility = "visible";
+			view2.style.visibility = "hidden";
+			arrow.style.visibility = "hidden";
+		} else if (viewNumber == 2) {
+			view1.style.visibility = "hidden";
+			view2.style.visibility = "visible";
+			arrow.style.visibility = "visible";
+			let categorySelector = document.getElementById("category-selector");
+			console.log(categoryList);
+			categoryList.forEach(category => {
+				let option = document.createElement("option");
+				option.value = category.name;
+				option.innerHTML = category.name;
+				option.setAttribute("data-categoryid", category.id);
+				categorySelector.appendChild(option);
+			})
+		}
+}
+
+//-Fonction pour masquer la boîte modale
+function hideModal() {
+	modal.style.display = "none";
+  }
+  
+//-Ajouter un gestionnaire d'évènements au bouton de fermeture pour masquer la modale
+  modalClose.addEventListener("click", hideModal);
+  
+//-Exemple d'utilisation : afficher la modale lorsque le bouton est cliqué
+  let openModalButton = document.getElementById("open-modal-button");
+  openModalButton.addEventListener("click", showModal);
+
+//- 5 - Fonction pour afficher les travaux de la galerie dans la modale
 
 function displayWorkModal (workList) {
 	console.log(workList);
 	let modalContainer = document.getElementById("modal_container1");
 	workList.forEach(work => {
-		let figure = document.createElement("div");
-		figure.style.position = "relative";
-		figure.style.width = "17%";
+		let div = document.createElement("div");
+		div.style.position = "relative";
+		div.style.display = "flex";
+		div.style.justifyContent = "center";
 		let image = document.createElement("img");
 		image.src = work.imageUrl;
 		image.alt = work.title;
@@ -103,20 +137,77 @@ function displayWorkModal (workList) {
 		// modalContainer.appendChild(image);
 		let icon = document.createElement("i");
 		icon.classList.add("fa-solid", "fa-trash");
-		figure.appendChild(image);
-		figure.appendChild(icon);
-		modalContainer.appendChild(figure);
+		icon.setAttribute("data-workid", work.id);
+
+		icon.addEventListener("click", function (e) {
+			e.preventDefault();
+			console.log(e.target.getAttribute("data-workid"));
+			removeProject(e.target.getAttribute("data-workid"));
+		})
+		div.appendChild(image);
+		div.appendChild(icon);
+		modalContainer.appendChild(div);
 	})
 }
 
-//-Fonction pour masquer la boîte modale
-function hideModal() {
-  modal.style.display = "none";
+//-Fonction pour supprimer des travaux existants
+const id = '123';
+
+function removeProject (id) {
+	let token = sessionStorage.getItem("token");
+fetch(`http://localhost:5678/api/works/${id}`, {
+  method: 'DELETE',
+  headers: new Headers({
+	'Authorization': `Bearer ${token}`,
+ }),
+})
+  .then(response => {
+    if (response.ok) {
+      console.log('Le travail sélectionné a été supprimé avec succès.');
+		workList.filter(work => work.id != id);
+	  return response;
+	//   const figure = document.querySelector(`figure#"${id}"`);
+    //         figure.remove();
+        } else {
+        alert('Erreur lors de la suppression du projet');
+        }
+    }
+  )
+  .catch(error => {
+    console.error('Une erreur s\'est produite lors de la suppression du travail sélectionné.', error);
+  });
 }
 
-//-Ajouter un gestionnaire d'événements au bouton de fermeture pour masquer la boîte modale
-modalClose.addEventListener("click", hideModal);
+//- 6 - Envoi d'un nouveau projet au back end pour l'ajouter à la galerie
 
-//-Exemple d'utilisation : afficher la boîte modale lorsque le bouton est cliqué
-let openModalButton = document.getElementById("open-modal-button");
-openModalButton.addEventListener("click", showModal);
+// async function addProject(event) {
+//         event.preventDefault();
+// }
+const newProject = {
+	titre: 'Nouveau projet',
+	description: 'Description du projet',
+	image: 'url_de_l_image.jpg',
+	// Ajouter d'autres propriétés si nécessaire
+  };
+  
+  fetch(`http://localhost:5678/api/works/`, {
+	method: 'POST',
+	headers: {
+	  'Content-Type': 'application/json',
+	},
+	body: JSON.stringify(newProject),
+  })
+	.then(response => {
+	  if (response.ok) {
+		console.log('Le projet a été ajouté avec succès.');
+		// Effectuer les actions supplémentaires nécessaires, comme mettre à jour l'interface utilisateur.
+	  } else {
+		console.error('Une erreur s\'est produite lors de l\'ajout du projet.');
+		// Traiter les erreurs éventuelles ou affichez un message d'erreur approprié.
+	  }
+	})
+	.catch(error => {
+	  console.error('Une erreur s\'est produite lors de l\'ajout du projet.', error);
+	  // Traitez les erreurs éventuelles ou affichez un message d'erreur approprié.
+	});
+  

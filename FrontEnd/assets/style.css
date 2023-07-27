@@ -273,21 +273,52 @@ footer nav ul {
 	color: #fff;
 	background-color: black;
 	font-size: 14px;
+	padding: 4px 5px 4px 5px;
+	border-radius: 4px;
+	top: 2px;
+	right: 10px;
 }
 
-#modal-container1 {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
+#modal_container1 {
+	margin-top: 2rem;
 	width: 100%;
+	gap: 1rem;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+}
+
+#modal_view2 {
+	visibility: hidden;
+}
+
+.fa-arrow-left {
+	visibility: hidden;
 }
   
 .modal-close {
 	margin-top: 10px;
+	border: none;
 }
 
 .button-close {
 	width: 100%;
 	display: flex;
 	justify-content: flex-end;
+}
+
+#delete_gallery {
+	color: red;
+	border: none;
+}
+
+#delete_gallery:hover {
+	background-color: white;
+}
+
+.two-buttons {
+	display: flex;
+	flex-direction: column;
+	width: 53%;
+	padding-left: 7rem;
+	margin-top: 1rem;
 }

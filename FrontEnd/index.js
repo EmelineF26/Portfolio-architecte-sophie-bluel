@@ -180,34 +180,35 @@ fetch(`http://localhost:5678/api/works/${id}`, {
 
 //- 6 - Envoi d'un nouveau projet au back end pour l'ajouter à la galerie
 
-// async function addProject(event) {
-//         event.preventDefault();
-// }
-const newProject = {
-	titre: 'Nouveau projet',
-	description: 'Description du projet',
-	image: 'url_de_l_image.jpg',
-	// Ajouter d'autres propriétés si nécessaire
-  };
-  
+  function createNewProject (e) {
+	e.preventDefault();
+	let token = sessionStorage.getItem("token");
+	let formData = new FormData();
+//-Récupération des inputs
+	let titre = document.getElementById("title").value;
+	formData.append('title', titre);
+	let category = document.getElementById("category-selector").value;
+	let categoryId = categoryList.filter(item => item.name == category)[0].id;
+	formData.append('category', categoryId);
+	let image = document.getElementById("project_image").files[0];
+	formData.append('image', image);
+	console.log(image);
+
   fetch(`http://localhost:5678/api/works/`, {
 	method: 'POST',
-	headers: {
-	  'Content-Type': 'application/json',
-	},
-	body: JSON.stringify(newProject),
-  })
+	headers: new Headers({
+		'Authorization': `Bearer ${token}`,
+	}),
+	body: formData,
+  	})
 	.then(response => {
 	  if (response.ok) {
-		console.log('Le projet a été ajouté avec succès.');
-		// Effectuer les actions supplémentaires nécessaires, comme mettre à jour l'interface utilisateur.
+		console.log('Le projet a été ajouté avec succès.', response);
 	  } else {
-		console.error('Une erreur s\'est produite lors de l\'ajout du projet.');
-		// Traiter les erreurs éventuelles ou affichez un message d'erreur approprié.
+		console.error('Une erreur s\'est produite lors de l\'ajout du projet.', response.status);
 	  }
 	})
 	.catch(error => {
-	  console.error('Une erreur s\'est produite lors de l\'ajout du projet.', error);
-	  // Traitez les erreurs éventuelles ou affichez un message d'erreur approprié.
-	});
-  
+	  	console.error('Une erreur s\'est produite lors de l\'ajout du projet.', error);
+	})
+};

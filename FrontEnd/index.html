@@ -53,14 +53,15 @@
 					</div>
 				</div>
 				<div id="modal_view2">
-					<form>
+					<form method="post" id="newproject_form" onsubmit="createNewProject(event)">
 						<label for="photo">Image</label>
-						<input type="file" title="image du projet" accept="image/png, image/jpeg">
+						<input type="file" id="project_image" title="image du projet" accept="image/png, image/jpeg">
 						<label for="title">Titre</label>
-						<input type="text" name="title" title="titre du projet" placeholder="toto"/>
+						<input type="text" name="title" id="title" title="titre du projet" placeholder="toto"/>
 						<label for="category">Catégorie</label>
 						<select id="category-selector" name="category" title="categorie du projet">
 						</select>
+						<button id="project_submit" type="submit" form="newproject_form" disabled>Valider</button>
 					</form>
 				</div>
 			</div>

@@ -1,6 +1,31 @@
-//- 1 - Appel de l'API à l'aide de fetch pour récupérer les projets
 let workList;
 let categoryList;
+
+let login;
+
+displayBar();
+function checkLogin () {
+	let token = sessionStorage.getItem("token")
+	token? login = true : login = false
+}
+
+function displayBar () {
+	checkLogin();
+	let bar = document.getElementById('bar')
+	let loginButton = document.getElementById('login_button')
+	if (login == true) {
+    bar.style.visibility = "visible";
+	loginButton.innerHTML = "logout";
+	loginButton.addEventListener("click", logOut);
+	}
+}
+
+function logOut () {
+	sessionStorage.clear()
+	window.location.href = 'index.html'
+}
+
+//- 1 - Appel de l'API à l'aide de fetch pour récupérer les projets
 async function getWorks(idCategory = null) {
   const response = await fetch('http://localhost:5678/api/works');
   let data = await response.json();
@@ -60,8 +85,7 @@ async function collectUniqueCategories() {
 		const button = document.createElement('button');
 		let filtersContainer = document.querySelector('#filters');
 		filtersContainer.appendChild(button);
-
-		console.log(category.id);
+		// console.log(category.id);
 		if (category.id == 3) {
 			button.innerHTML = "Hôtels & Restaurants";
 		} else {
@@ -97,7 +121,7 @@ function switchModalView(viewNumber) {
 			view2.style.visibility = "visible";
 			arrow.style.visibility = "visible";
 			let categorySelector = document.getElementById("category-selector");
-			console.log(categoryList);
+			// console.log(categoryList);
 			categoryList.forEach(category => {
 				let option = document.createElement("option");
 				option.value = category.name;

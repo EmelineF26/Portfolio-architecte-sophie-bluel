@@ -60,6 +60,15 @@ header {
 	margin: 50px 0;
 }
 
+#bar {
+	width: 100%;
+	height: 59px;
+	background-color: black;
+	justify-content: center;
+	display: flex;
+	visibility: hidden;
+}
+
 section {
 	margin: 50px 0;
 }
@@ -222,11 +231,26 @@ footer nav ul {
 
 /* CSS de la page de connexion (login) */
 
+input [type="text"] {
+	width: 200px;
+	height: 80px;
+}
+
+#title_log {
+	margin-bottom: 3.8rem;
+}
+
 .form-login {
 	display: flex;
 	justify-content: space-evenly;
 	flex-direction: column;
 	align-items: center;
+}
+
+#login {
+	display: flex;
+	flex-direction: column;
+	gap: 1.3rem;
 }
 
 /* CSS de la modale */
@@ -258,8 +282,9 @@ footer nav ul {
 }
 
 .modal-title {
-	font-size: 24px;
+	font-size: 27px;
 	margin-top: 0;
+	color: black;
 }
 
 .style-image {
@@ -298,6 +323,8 @@ footer nav ul {
 .modal-close {
 	margin-top: 10px;
 	border: none;
+	color: black;
+	font-size: 18px;
 }
 
 .button-close {

@@ -28,20 +28,25 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+
 body {
 	line-height: 1;
 }
+
 ol, ul {
 	list-style: none;
 }
+
 blockquote, q {
 	quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
 	content: '';
 	content: none;
 }
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
@@ -73,7 +78,7 @@ section {
 	margin: 50px 0;
 }
 
-h1{
+h1 {
 	display: flex;
 	flex-direction: column;
 	font-family: 'Syne';
@@ -88,7 +93,7 @@ h1 > span {
 	letter-spacing: 0.1em;
 }
 
-h2{
+h2 {
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
@@ -164,6 +169,11 @@ button:hover {
 	background-color: #1D6154;
 }
 
+.title-projets {
+	display: flex;
+	justify-content: center;
+}
+
 .gallery {
 	width: 100%;
 	display: grid;
@@ -231,9 +241,14 @@ footer nav ul {
 
 /* CSS de la page de connexion (login) */
 
-input [type="text"] {
-	width: 200px;
-	height: 80px;
+#username, #password {
+	width: 370px;
+	height: 35px;
+	gap: 7px;
+}
+
+#password {
+	margin-bottom: 1.4rem;
 }
 
 #title_log {
@@ -254,11 +269,6 @@ input [type="text"] {
 }
 
 /* CSS de la modale */
-
-.open-modal-button {
-	display: flex;
-	align-content: flex-end;
-}
 
 .modal {
 	display: none;
@@ -348,4 +358,14 @@ input [type="text"] {
 	width: 53%;
 	padding-left: 7rem;
 	margin-top: 1rem;
+}
+
+#project_submit {
+	background-color: #1D6154;
+	color: white;
+}
+
+#project_submit:disabled {
+	background-color: grey;
+	color: white;
 }

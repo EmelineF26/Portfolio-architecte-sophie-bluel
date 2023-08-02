@@ -2,6 +2,11 @@ let workList;
 let categoryList;
 
 let login;
+let formValues = {
+    image: null,
+    title: null,
+    category: null
+}
 
 displayBar();
 function checkLogin () {
@@ -120,6 +125,8 @@ function switchModalView(viewNumber) {
 			view1.style.visibility = "hidden";
 			view2.style.visibility = "visible";
 			arrow.style.visibility = "visible";
+			let projectImage = document.getElementById("project_image");
+			projectImage.addEventListener("change", verifyImage);
 			let categorySelector = document.getElementById("category-selector");
 			// console.log(categoryList);
 			categoryList.forEach(category => {
@@ -132,9 +139,52 @@ function switchModalView(viewNumber) {
 		}
 }
 
+//-Vérification du poids de l'image uploadée
+function verifyImage () {
+	let image = document.getElementById("project_image");
+	let errorMessage = document.getElementById("error_message");
+	let parent = document.getElementById("newproject_form");
+	if (image.files.length >0) {
+		const size = image.files.item(0).size;
+		const sizeMB = size/1024**2;
+		if (sizeMB >1) {
+			let insightImage = document.getElementById("insight_image");
+			if (insightImage!=null) {
+				parent.lastElementChild.remove();
+			}
+			errorMessage.innerHTML = "L'image doit peser moins de 4Mo.";
+		} else {
+			errorMessage.innerHTML = "";
+			let insightImage = document.createElement("img");
+			insightImage.setAttribute("id", "insight_image");
+			const file = image.files[0]
+			insightImage.src = URL.createObjectURL(file)
+			parent.append(insightImage);
+			formValues.image = file;
+			verifyFormValues("modal");
+		}
+	} else {
+		//error("Aucun fichier sélectionné")
+	}
+}
+
 //-Fonction pour masquer la boîte modale
-function hideModal() {
+function hideModal(e) {
+	e.preventDefault();
 	modal.style.display = "none";
+	if (verifyFormValues("save_changes")) {
+		console.log(workList);
+		let category = categoryList.filter(category => category.id == formValues.category)[0];
+		let newProject = {
+			title:formValues.title, 
+			category:{
+				id:0, 
+				name:category.name},
+			imageUrl:formValues.image
+		}
+		workList.push(newProject);
+		console.log(workList);
+	}
   }
   
 //-Ajouter un gestionnaire d'évènements au bouton de fermeture pour masquer la modale
@@ -204,19 +254,48 @@ fetch(`http://localhost:5678/api/works/${id}`, {
 
 //- 6 - Envoi d'un nouveau projet au back end pour l'ajouter à la galerie
 
+function saveTitle () {
+	formValues.title = document.getElementById("title").value;
+	verifyFormValues("modal");
+ }
+
+ function saveCategory () {
+	let category = document.getElementById("category-selector").value;
+	let categoryId = categoryList.filter(item => item.name == category)[0].id;
+	formValues.category = categoryId;
+	verifyFormValues("modal");
+ }
+
+ function verifyFormValues (calledFrom) {
+	if ((formValues.title != null && !formValues.title.length) || formValues.title == null || formValues.category == null || formValues.title == null) {
+		return false;
+	} else if (formValues.title&&formValues.category&&formValues.image) {
+		if (calledFrom == "modal") {
+			let buttonSubmit = document.getElementById("project_submit");
+			buttonSubmit.removeAttribute("disabled");
+		} else if (calledFrom == "save_changes") {
+			return true;
+		}
+	}
+ }
+
   function createNewProject (e) {
 	e.preventDefault();
 	let token = sessionStorage.getItem("token");
 	let formData = new FormData();
-//-Récupération des inputs
-	let titre = document.getElementById("title").value;
-	formData.append('title', titre);
-	let category = document.getElementById("category-selector").value;
-	let categoryId = categoryList.filter(item => item.name == category)[0].id;
-	formData.append('category', categoryId);
-	let image = document.getElementById("project_image").files[0];
-	formData.append('image', image);
-	console.log(image);
+	if (verifyFormValues("save_changes")) {
+		formData.append('title', formValues.title);
+		formData.append('category', formValues.category);
+		formData.append('image', formValues.image);
+	}
+	// let titre = document.getElementById("title").value;
+	// formData.append('title', titre);
+	// let category = document.getElementById("category-selector").value;
+	// let categoryId = categoryList.filter(item => item.name == category)[0].id;
+	// formData.append('category', categoryId);
+	// let image = document.getElementById("project_image").files[0];
+	// formData.append('image', image);
+	// console.log(image);
 
   fetch(`http://localhost:5678/api/works/`, {
 	method: 'POST',

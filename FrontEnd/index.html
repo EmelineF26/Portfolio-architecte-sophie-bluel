@@ -14,7 +14,7 @@
 <body>
 <header>
 	<div id="bar">
-		<button>Publier les changements</button>
+		<button id="save_changes" onclick="createNewProject(event)">Publier les changements</button>
 		<div>
 			<i class="fa fa-edit"></i>
 			<p>Mode Edition</p>
@@ -44,7 +44,6 @@
 		</article>
 		</div>
 	</section>
-	<button id="open-modal-button" class="open-modal-button">Modifier</button>
 		<div id="modal" class="modal">
 			<div class="modal-content">
 				<div class="button-close">
@@ -61,21 +60,25 @@
 					</div>
 				</div>
 				<div id="modal_view2">
-					<form method="post" id="newproject_form" onsubmit="createNewProject(event)">
+					<form id="newproject_form" onsubmit="hideModal(event)">
 						<label for="photo">Image</label>
 						<input type="file" id="project_image" title="image du projet" accept="image/png, image/jpeg">
 						<label for="title">Titre</label>
-						<input type="text" name="title" id="title" title="titre du projet" placeholder="toto"/>
+						<input type="text" onkeyup="saveTitle()" name="title" id="title" title="titre du projet" placeholder="toto"/>
 						<label for="category">Catégorie</label>
-						<select id="category-selector" name="category" title="categorie du projet">
+						<select id="category-selector" name="category" title="categorie du projet" onchange="saveCategory()">
 						</select>
 						<button id="project_submit" type="submit" form="newproject_form" disabled>Valider</button>
+						<p id="error_message"></p>
 					</form>
 				</div>
 			</div>
 		</div>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+		<div class="title-projets">
+			<h2>Mes Projets</h2>
+			<button id="open-modal-button" class="open-modal-button">Modifier</button>
+		</div>
 		
 		<div class="gallery">
 			<!-- <figure>

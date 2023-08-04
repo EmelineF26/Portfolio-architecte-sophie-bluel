@@ -43,7 +43,6 @@ async function getWorks(idCategory = null) {
 })}
 getWorks();
 
-
 //- 2 - Ajout à la galerie des travaux récupérés
 function renderWork(work) {
 	const sectionGallery = document.querySelector(".gallery");
@@ -178,9 +177,9 @@ function hideModal(e) {
 		let newProject = {
 			title:formValues.title, 
 			category:{
-				id:0, 
+				id:0,
 				name:category.name},
-			imageUrl:formValues.image
+			imageUrl:URL.createObjectURL(formValues.image)
 		}
 		workList.push(newProject);
 		console.log(workList);
@@ -199,6 +198,7 @@ function hideModal(e) {
 function displayWorkModal (workList) {
 	console.log(workList);
 	let modalContainer = document.getElementById("modal_container1");
+	modalContainer.innerHTML = "",
 	workList.forEach(work => {
 		let div = document.createElement("div");
 		div.style.position = "relative";
@@ -238,7 +238,10 @@ fetch(`http://localhost:5678/api/works/${id}`, {
   .then(response => {
     if (response.ok) {
       console.log('Le travail sélectionné a été supprimé avec succès.');
-		workList.filter(work => work.id != id);
+	  console.log(workList);
+	  workList = workList.filter(work => work.id != id);
+	  displayWorkModal(workList);
+	  console.log(workList);
 	  return response;
 	//   const figure = document.querySelector(`figure#"${id}"`);
     //         figure.remove();
@@ -307,6 +310,7 @@ function saveTitle () {
 	.then(response => {
 	  if (response.ok) {
 		console.log('Le projet a été ajouté avec succès.', response);
+		getWorks();
 	  } else {
 		console.error('Une erreur s\'est produite lors de l\'ajout du projet.', response.status);
 	  }

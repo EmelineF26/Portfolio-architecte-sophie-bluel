@@ -69,9 +69,32 @@ header {
 	width: 100%;
 	height: 59px;
 	background-color: black;
-	justify-content: center;
 	display: flex;
+	justify-content: center;
 	visibility: hidden;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+
+.text-white {
+	color: white;
+}
+
+.flex {
+	display: flex;
+}
+
+.flex-row {
+	flex-direction: row;
+}
+
+.item-center {
+	align-items: center;
+}
+
+.self-center {
+	align-self: center;
 }
 
 section {
@@ -113,6 +136,21 @@ nav li {
 
 li:hover {
 	color: #B1663C;
+}
+
+.text-black {
+	color: black;
+}
+
+.decoration-none {
+	text-decoration: none;
+}
+
+.navbar {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	margin-top: 59px;
 }
 
 #introduction {
@@ -172,6 +210,7 @@ button:hover {
 .title-projets {
 	display: flex;
 	justify-content: center;
+	gap: 35px;
 }
 
 .gallery {

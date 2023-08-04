@@ -14,22 +14,24 @@
 <body>
 <header>
 	<div id="bar">
-		<button id="save_changes" onclick="createNewProject(event)">Publier les changements</button>
-		<div>
-			<i class="fa fa-edit"></i>
-			<p>Mode Edition</p>
+		<div class="flex flex-row item-center">
+			<i class="text-white fa fa-edit"></i>
+			<p class="text-white">Mode Edition</p>
 		</div>
+		<button id="save_changes" class="flex self-center" onclick="createNewProject(event)">Publier les changements</button>
 	</div>
 
-	<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
-	<nav>
-		<ul>
-			<li>projets</li>
-			<li>contact</li>
-			<li id="login_button"><a href="login.html">login</a></li>
-			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
-		</ul>
-	</nav>
+	<div class="navbar">
+		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+		<nav>
+			<ul>
+				<li>projets</li>
+				<li>contact</li>
+				<li id="login_button"><a class="text-black decoration-none" href="login.html">login</a></li>
+				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+			</ul>
+		</nav>
+	</div>
 </header>
 <main>
 	<section id="introduction">

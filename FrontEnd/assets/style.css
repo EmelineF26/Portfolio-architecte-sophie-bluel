@@ -55,7 +55,7 @@ table {
 body {
 	max-width: 1140px;
 	margin:auto;
-	font-family: 'Work Sans' ;
+	font-family: 'Work Sans';
 	font-size: 14px;
 }
 
@@ -79,6 +79,7 @@ header {
 
 .text-white {
 	color: white;
+	margin-right: 0.5rem;
 }
 
 .flex {
@@ -87,6 +88,7 @@ header {
 
 .flex-row {
 	flex-direction: row;
+	margin-right: 1rem;
 }
 
 .item-center {
@@ -331,9 +333,15 @@ footer nav ul {
 }
 
 .modal-title {
-	font-size: 27px;
+	font-family: 'Work Sans';
+	font-size: 26px;
 	margin-top: 0;
 	color: black;
+	font-weight: 400;
+}
+
+.modal-title2 {
+	margin-bottom: 1.8rem;
 }
 
 .style-image {
@@ -362,15 +370,54 @@ footer nav ul {
 }
 
 #modal_view2 {
-	visibility: hidden;
+	display: none;
+}
+
+.blue_font {
+	background-color: rgba(232, 241, 246, 1);
+	width: 420px;
+	height: 169px;
+	padding-left: 5rem;
+	margin: 0;
+	border-radius: 3px;
+}
+
+.fa-image {
+	font-size: 61px;
+	color: #ced4da;
+	padding-top: 1.7rem;
+	margin-right: 3.8rem;
+	/* border: 1px red solid; */
+	/* width: 58px;
+	height: 58px; */
+}
+
+#insight_image {
+	width: 30%;
 }
 
 .fa-arrow-left {
 	visibility: hidden;
+	display: flex;
 }
   
+.box-form {
+	margin-top: 0.8rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1.1rem;
+}
+
+#title, #category-selector {
+	width: 455px;
+	height: 35px;
+}
+
+#modal_view2 label {
+	text-align: start;
+}
+
 .modal-close {
-	margin-top: 10px;
 	border: none;
 	color: black;
 	font-size: 18px;
@@ -402,6 +449,9 @@ footer nav ul {
 #project_submit {
 	background-color: #1D6154;
 	color: white;
+	margin-top: 1rem;
+	width: 237px;
+	margin-left: 6.2rem;
 }
 
 #project_submit:disabled {

@@ -48,8 +48,8 @@
 	</section>
 		<div id="modal" class="modal">
 			<div class="modal-content">
-				<i id="arrow" class="fa-solid fa-arrow-left" onclick="switchModalView(1)"></i>
 				<div class="button-close">
+					<i id="arrow" class="fa-solid fa-arrow-left" onclick="switchModalView(1)"></i>
 					<button id="modal-close" class="modal-close">X</button>
 				</div>
 				<div id="modal_view1">
@@ -66,12 +66,12 @@
 						<h2 class="modal-title modal-title2">Ajout photo</h2>
 						<div class="blue_font">
 							<div id="parent_insight">
-								<i class="fa-regular fa-image">
+								<img src="./assets/icons/icone-grise.png" alt="Image" id="fa-image">
 							</div>
-								<input type="file" id="project_image" title="image du projet" accept="image/png, image/jpeg"></i>
-								<label for="project_image">+ Ajouter photo</label>
+								<input type="file" id="project_image" title="image du projet" accept="image/png, image/jpeg" hidden/>
+								<label for="project_image" id="project_image_add">+ Ajouter photo</label>
 						</div>
-							<!-- <label for="photo">Image</label> -->
+							<p id="error_message"></p>
 							<div class ="box-form">
 								<label for="title">Titre</label>
 								<input type="text" onkeyup="saveTitle()" name="title" id="title" title="titre du projet" placeholder="Titre du projet"/>
@@ -79,7 +79,6 @@
 									<select id="category-selector" name="category" title="categorie du projet" onchange="saveCategory()">
 									</select>
 								<button id="project_submit" type="submit" form="newproject_form" disabled>Valider</button>
-								<p id="error_message"></p>
 							</div>
 					</form>
 				</div>

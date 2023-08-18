@@ -341,7 +341,7 @@ footer nav ul {
 }
 
 .modal-title2 {
-	margin-bottom: 1.8rem;
+	margin-bottom: 1.4rem;
 }
 
 .style-image {
@@ -369,27 +369,41 @@ footer nav ul {
 	grid-template-columns: repeat(5, 1fr);
 }
 
+#project_image_add {
+	background-color: #adb5bd;
+	color: #5e81ac;
+	border-radius: 50px;
+	padding: 0.8rem;
+	margin-right: 4.6rem;
+	width: 173px;
+	height: 36px;
+}
+
 #modal_view2 {
 	display: none;
+}
+
+#modal_view2 label {
+	text-align: start;
 }
 
 .blue_font {
 	background-color: rgba(232, 241, 246, 1);
 	width: 420px;
-	height: 169px;
+	height: 190px;
 	padding-left: 5rem;
 	margin: 0;
 	border-radius: 3px;
 }
 
-.fa-image {
-	font-size: 61px;
+#fa-image {
 	color: #ced4da;
 	padding-top: 1.7rem;
-	margin-right: 3.8rem;
+	margin-right: 4.8rem;
+	margin-bottom: 1.4rem;
 	/* border: 1px red solid; */
-	/* width: 58px;
-	height: 58px; */
+	width: 58px;
+	height: 58px;
 }
 
 #insight_image {
@@ -399,6 +413,7 @@ footer nav ul {
 .fa-arrow-left {
 	visibility: hidden;
 	display: flex;
+	font-size: 20px;
 }
   
 .box-form {
@@ -413,20 +428,17 @@ footer nav ul {
 	height: 35px;
 }
 
-#modal_view2 label {
-	text-align: start;
-}
-
 .modal-close {
 	border: none;
 	color: black;
 	font-size: 18px;
+	margin-top: 0;
 }
 
 .button-close {
 	width: 100%;
 	display: flex;
-	justify-content: flex-end;
+	justify-content: space-between;
 }
 
 #delete_gallery {

@@ -1,7 +1,7 @@
 document.getElementById("login").addEventListener("submit", function (event) {
   event.preventDefault();
 
-  //Récupérer username et password
+  //-Récupérer inputs username et password
   let inputUsername = document.getElementById("username");
   let usernameValue = inputUsername.value;
 
@@ -27,18 +27,18 @@ function login(username, password) {
   fetch(url, options)
     .then(function (response) {
       if (response.ok) {
-        return response.json(); // Convertit la réponse en JSON
+        return response.json(); //-Convertit la réponse en JSON
       } else {
         throw new Error("Erreur lors de la requête de connexion");
       }
     })
     .then(function (data) {
-      // Traiter la réponse JSON
+      //-Traiter la réponse JSON
       if (data.token) {
         alert("Connexion réussie");
-        //Effectuer les actions supplémentaires nécéssaires
+        //-Effectuer les actions supplémentaires nécéssaires
         sessionStorage.setItem("token", data.token);
-        // Rediriger l'utilisateur vers une autre page ou effectuer d'autres actions nécessaires
+        //-Redirection de l'utilisateur vers une autre page ou effectuer d'autres actions nécessaires
         window.location.href = 'index.html';
       } else {
         alert("Nom d'utilisateur ou mot de passe incorrect");

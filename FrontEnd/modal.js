@@ -14,8 +14,6 @@ function showModal() {
   displayWorkModal(workList);
   verifyFormValues();
 }
-let imageAdd = document.getElementById("project_image_add");
-// imageAdd.style.display = 'flex';
 
 //-Fonction pour changer de vue dans la modale pour ajouter un projet
 function switchModalView(viewNumber) {
@@ -92,7 +90,6 @@ function hideModal(e) {
       title: formValues.title,
       userId: 0,
     };
-    //workList.unshift(newWork);
     renderWork(newWork);
     console.log(workList);
   } else {
@@ -131,7 +128,6 @@ function displayWorkModal(workList) {
       image.src = work.imageUrl;
       image.alt = work.title;
       image.classList.add("style-image");
-      // modalContainer.appendChild(image);
       let icon = document.createElement("i");
       icon.classList.add("fa-solid", "fa-trash");
       icon.setAttribute("data-workid", work.id);
@@ -166,8 +162,6 @@ function removeProject(id) {
         displayWorkModal(workList);
         console.log(workList);
         return response;
-        //   const figure = document.querySelector(`figure#"${id}"`);
-        //         figure.remove();
       } else {
         alert("Erreur lors de la suppression du projet");
       }
@@ -215,10 +209,6 @@ function verifyFormValues(calledFrom) {
 
 function createNewProject(e) {
   e.preventDefault();
-  $("#project_image").change(function(){
-    let imageAdd= document.getElementById('project_image_add');
-    imageAdd.style.display = 'none';
-  });
   let token = sessionStorage.getItem("token");
   let formData = new FormData();
   if (verifyFormValues("save_changes")) {

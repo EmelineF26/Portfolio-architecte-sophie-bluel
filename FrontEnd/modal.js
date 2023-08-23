@@ -15,7 +15,7 @@ function showModal() {
   verifyFormValues();
 }
 let imageAdd = document.getElementById("project_image_add");
-imageAdd.style.display = 'flex';
+// imageAdd.style.display = 'flex';
 
 //-Fonction pour changer de vue dans la modale pour ajouter un projet
 function switchModalView(viewNumber) {
@@ -33,7 +33,6 @@ function switchModalView(viewNumber) {
     let projectImage = document.getElementById("project_image");
     projectImage.addEventListener("change", verifyImage);
     let categorySelector = document.getElementById("category-selector");
-    // console.log(categoryList);
     categoryList.forEach((category) => {
       let option = document.createElement("option");
       option.value = category.name;
@@ -68,6 +67,7 @@ function verifyImage() {
       parent.append(insightImage);
       formValues.image = file;
       verifyFormValues("modal");
+      removePreviewImage();
     }
   } else {
     //error("Aucun fichier sélectionné")
@@ -120,7 +120,6 @@ openModalButton.addEventListener("click", showModal);
 //- 5 - Fonction pour afficher les travaux de la galerie dans la modale
 
 function displayWorkModal(workList) {
-  // console.log(workList);
   let modalContainer = document.getElementById("modal_container1");
   (modalContainer.innerHTML = ""),
     workList.forEach((work) => {
@@ -198,7 +197,6 @@ function saveCategory() {
 function verifyFormValues(calledFrom) {
   let buttonSubmit = document.getElementById("project_submit");
   buttonSubmit.setAttribute("disabled", "");
-  // console.log(buttonSubmit);
   if (
     (formValues.title != null && !formValues.title.length) ||
     formValues.title == null ||
@@ -266,10 +264,6 @@ function createNewProject(e) {
 }
 
 function removePreviewImage() {
-  const previewImage = document.getElementById("fa-image");
   let imageAdd = document.getElementById("project_image_add");
-  previewImage.src = "";
-    previewImage.style.display = 'none';
     imageAdd.style.display = 'none';
-    console.log(imageAdd.style.display);
 }

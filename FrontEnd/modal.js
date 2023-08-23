@@ -13,8 +13,9 @@ function showModal() {
   modal.style.display = "block";
   displayWorkModal(workList);
   verifyFormValues();
-  let imageAdd = imageAdd.style.display = 'block';
 }
+let imageAdd = document.getElementById("project_image_add");
+imageAdd.style.display = 'flex';
 
 //-Fonction pour changer de vue dans la modale pour ajouter un projet
 function switchModalView(viewNumber) {
@@ -266,6 +267,9 @@ function createNewProject(e) {
 
 function removePreviewImage() {
   const previewImage = document.getElementById("fa-image");
+  let imageAdd = document.getElementById("project_image_add");
   previewImage.src = "";
-     previewImage.style.display = "none";
-  }
+    previewImage.style.display = 'none';
+    imageAdd.style.display = 'none';
+    console.log(imageAdd.style.display);
+}

@@ -25,26 +25,21 @@ function login(username, password) {
     body: JSON.stringify(data)
   };
   fetch(url, options)
-    .then(function (response) {
-      if (response.ok) {
-        return response.json(); //-Convertit la réponse en JSON
-      } else {
-        throw new Error("Erreur lors de la requête de connexion");
-      }
-    })
+    .then(res => res.json())
     .then(function (data) {
       //-Traiter la réponse JSON
       if (data.token) {
         alert("Connexion réussie");
-        //-Effectuer les actions supplémentaires nécéssaires
+        //-Effectuer les actions supplémentaires nécessaires
         sessionStorage.setItem("token", data.token);
         //-Redirection de l'utilisateur vers une autre page ou effectuer d'autres actions nécessaires
         window.location.href = 'index.html';
       } else {
-        alert("Nom d'utilisateur ou mot de passe incorrect");
+        throw new Error("Nom d'utilisateur ou mot de passe incorrect"); //-Nouvelle ligne
       }
     })
     .catch(function (error) {
-      console.error("Erreur lors de la requête de connexion:", error);
+      console.error("Erreur lors de la requête de connexion:", error.message); //-Utilisation de error.message
+      alert(error.message); //-Nouvelle ligne pour afficher l'erreur à l'utilisateur
     })
-};
+  }

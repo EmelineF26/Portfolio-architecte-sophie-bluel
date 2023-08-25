@@ -18,7 +18,7 @@
 			<i class="text-white fa fa-edit"></i>
 			<p class="text-white">Mode Edition</p>
 		</div>
-		<button id="save_changes" class="flex self-center" onclick="createNewProject(event)">Publier les changements</button>
+		<button id="save_changes" class="flex self-center style_btn">Publier les changements</button>
 	</div>
 
 	<div class="navbar">
@@ -48,20 +48,20 @@
 		<div id="modal" class="modal">
 			<div class="modal-content">
 				<div class="button-close">
-					<i id="arrow" class="fa-solid fa-arrow-left" onclick="switchModalView(1)"></i>
-					<button id="modal-close" class="modal-close">X</button>
+					<i id="arrow" class="fa-solid fa-arrow-left"></i>
+					<button id="modal-close" class="modal-close style_btn">X</button>
 				</div>
 				<div id="modal_view1">
 					<h2 class="modal-title">Galerie photo</h2>
 					<div id="modal_container1"></div>
 					<!-- <p class="modal-text">Contenu de la boîte modale</p> -->
 					<div class="two-buttons">
-						<button id="add_project" onclick="switchModalView(2)">Ajouter une photo</button>
-						<button id="delete_gallery">Supprimer la galerie</button>
+						<button id="add_project" class="style_btn">Ajouter une photo</button>
+						<button id="delete_gallery" class="style_btn">Supprimer la galerie</button>
 					</div>
 				</div>
 				<div id="modal_view2">
-					<form id="newproject_form" onsubmit="hideModal(event)">
+					<form id="newproject_form">
 						<h2 class="modal-title modal-title2">Ajout photo</h2>
 						<div class="blue_font">
 							<div id="parent_insight">
@@ -73,11 +73,13 @@
 							<p id="error_message"></p>
 							<div class ="box-form">
 								<label for="title">Titre</label>
-								<input type="text" onkeyup="saveTitle()" name="title" id="title" title="titre du projet" placeholder="Titre du projet">
+								<input type="text" name="title" id="title" title="titre du projet" placeholder="Titre du projet">
+								<p id="error_message2"></p>
 								<label for="category-selector">Catégorie</label>
-									<select id="category-selector" name="category" title="categorie du projet" onchange="saveCategory()">
+									<select id="category-selector" name="category" title="categorie du projet">
+										<option value="default" selected hidden>Choisissez une catégorie</option>
 									</select>
-								<button id="project_submit" type="submit" form="newproject_form" disabled>Valider</button>
+								<button class="style_btn" id="project_submit" type="submit" form="newproject_form" disabled>Valider</button>
 							</div>
 					</form>
 				</div>
@@ -86,7 +88,7 @@
 	<section id="portfolio">
 		<div class="title-projets">
 			<h2>Mes Projets</h2>
-			<button id="open-modal-button" class="open-modal-button">Modifier</button>
+			<button id="open-modal-button" class="open-modal-button"><i class="fa fa-edit"></i>modifier</button>
 		</div>
 		
 		<div class="gallery">

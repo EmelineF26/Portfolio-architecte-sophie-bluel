@@ -194,7 +194,7 @@ li:hover {
 	gap: 12px;
 }
 
-button {
+.style_btn {
 	border: 1px solid #1D6154;
     border-radius: 60px;
 	font-family: 'syne';
@@ -204,7 +204,7 @@ button {
 	height: 36px;
 }
 
-button:hover {
+.style_btn:hover {
 	color: white;
 	background-color: #1D6154;
 }
@@ -278,6 +278,18 @@ footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
+}
+
+#open-modal-button {
+	display: none;
+	font-family: 'syne';
+	border: 0px;
+	background-color: white;
+	margin-bottom: 1rem;
+}
+
+.fa-edit {
+	margin-right: 0.3rem;
 }
 
 /* CSS de la page de connexion (login) */

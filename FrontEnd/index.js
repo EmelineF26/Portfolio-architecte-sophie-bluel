@@ -12,6 +12,10 @@ displayBar();
 function checkLogin() {
   let token = sessionStorage.getItem("token");
   token ? (login = true) : (login = false);
+  if (login == true) {
+  let buttonOpenModal = document.getElementById("open-modal-button");
+      buttonOpenModal.style.display = 'block';
+  }
 }
 
 function displayBar() {
@@ -55,7 +59,6 @@ function renderWork(work) {
   figure.appendChild(img);
   figure.appendChild(figcaption);
   sectionGallery.appendChild(figure);
-  // console.log(work);
 }
 
 //- 3 - Récupération des catégories et réalisation du filtre
@@ -67,6 +70,7 @@ async function collectUniqueCategories() {
   //-Création du tableau de catégories sans doublon grace à Set
   const uniqueCategories = new Set(categories);
   categoryList = categories;
+  configModal2Form();
   //-Création d'une "div" qui contiendra nos boutons filtres
   const filtersContainer = document.createElement("div");
   filtersContainer.setAttribute("id", "filters");
@@ -79,6 +83,7 @@ async function collectUniqueCategories() {
 const categories = collectUniqueCategories();
 categories.then((categories) => {
   const button = document.createElement("button");
+  button.classList.add("style_btn");
   let filtersContainer = document.querySelector("#filters");
   filtersContainer.appendChild(button);
   button.textContent = "Tous";
@@ -87,6 +92,7 @@ categories.then((categories) => {
   });
   for (let category of categories) {
     const button = document.createElement("button");
+    button.classList.add("style_btn");
     let filtersContainer = document.querySelector("#filters");
     filtersContainer.appendChild(button);
     // console.log(category.id);

@@ -105,7 +105,7 @@ formNewProject.addEventListener("submit", function(e) {
     };
     renderWork(newWork)
     displayWork(newWork)
-    resetModal2Form()
+    // resetModal2Form()
     hideModalView(2)
     showModalView(1)
   } else {
@@ -141,7 +141,7 @@ modalClose.addEventListener("click", function () {
   hideModal()
   hideModalView(1)
   hideModalView(2)
-  resetModal2Form()
+  // resetModal2Form()
 });
 
 //-Exemple d'utilisation : afficher la modale lorsque le bouton est cliqué
@@ -266,8 +266,6 @@ function createNewProject() {
     formData.append("title", formValues.title);
     formData.append("categoryId", formValues.category);
     formData.append("imageURL", formValues.image);
-    // formData.append("userId", 0);
-    // formData.append("id", 0);
   }
   fetch(`http://localhost:5678/api/works/`, {
     method: "POST",
@@ -280,6 +278,7 @@ function createNewProject() {
     .then((response) => {
       if (response.ok) {
         console.log("Le projet a été ajouté avec succès.", response);
+        // resetModal2Form();
         formValues = {
           image: null,
           title: null,

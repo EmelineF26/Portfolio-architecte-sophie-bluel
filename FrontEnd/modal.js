@@ -105,7 +105,6 @@ formNewProject.addEventListener("submit", function(e) {
     };
     renderWork(newWork)
     displayWork(newWork)
-    // resetModal2Form()
     hideModalView(2)
     showModalView(1)
   } else {
@@ -141,7 +140,6 @@ modalClose.addEventListener("click", function () {
   hideModal()
   hideModalView(1)
   hideModalView(2)
-  // resetModal2Form()
 });
 
 //-Exemple d'utilisation : afficher la modale lorsque le bouton est cliqué
@@ -205,10 +203,8 @@ function removeProject(id) {
     .then((response) => {
       if (response.ok) {
         console.log("Le travail sélectionné a été supprimé avec succès.");
-        // console.log(workList);
         workList = workList.filter((work) => work.id != id);
         displayWorks(workList);
-        // console.log(workList);
         return response;
       } else {
         alert("Erreur lors de la suppression du projet");
@@ -261,11 +257,10 @@ saveChanges.addEventListener("click", createNewProject);
 function createNewProject() {
   let token = sessionStorage.getItem("token");
   let formData = new FormData();
-  console.log(verifyFormValues());
   if (verifyFormValues()) {
     formData.append("title", formValues.title);
-    formData.append("categoryId", formValues.category);
-    formData.append("imageURL", formValues.image);
+    formData.append("category", formValues.category);
+    formData.append("image", formValues.image);
   }
   fetch(`http://localhost:5678/api/works/`, {
     method: "POST",
@@ -278,7 +273,7 @@ function createNewProject() {
     .then((response) => {
       if (response.ok) {
         console.log("Le projet a été ajouté avec succès.", response);
-        // resetModal2Form();
+        resetModal2Form();
         formValues = {
           image: null,
           title: null,

@@ -115,11 +115,6 @@ formNewProject.addEventListener("submit", function(e) {
 
 function hideModal() {
   modal.style.display = "none";
-
-//     showModalView(1);
-//     hideModalView(2);
-//     console.log(workList);
-//   } else {
 }
 
 function resetModal2Form () {
@@ -134,15 +129,11 @@ function resetModal2Form () {
   project_image.value = null;
   title.value = null;
   category.value = "default";
-  //hideImage
-  //Show input + label
   let imageAdd = document.getElementById("project_image_add");
   let insightImage = document.getElementById("insight_image");
   let faImage = document.getElementById("fa-image");
-  imageAdd.style.display = 'flex';
-  insightImage.style.display = 'none';
-  faImage.setAttribute('./assets/icons/icone-grise.png');
-  faImage.style.display = 'flex';
+  imageAdd.style.display = 'initial';
+  document.getElementById("parent_insight").innerHTML = `<img src ="./assets/icons/icone-grise.png" alt="Image" id="fa-image">`
 }
 
 //-Ajouter un gestionnaire d'évènements au bouton de fermeture pour masquer la modale
@@ -214,10 +205,10 @@ function removeProject(id) {
     .then((response) => {
       if (response.ok) {
         console.log("Le travail sélectionné a été supprimé avec succès.");
-        console.log(workList);
+        // console.log(workList);
         workList = workList.filter((work) => work.id != id);
         displayWorks(workList);
-        console.log(workList);
+        // console.log(workList);
         return response;
       } else {
         alert("Erreur lors de la suppression du projet");
@@ -270,15 +261,19 @@ saveChanges.addEventListener("click", createNewProject);
 function createNewProject() {
   let token = sessionStorage.getItem("token");
   let formData = new FormData();
+  console.log(verifyFormValues());
   if (verifyFormValues()) {
     formData.append("title", formValues.title);
-    formData.append("category", formValues.category);
-    formData.append("image", formValues.image);
+    formData.append("categoryId", formValues.category);
+    formData.append("imageURL", formValues.image);
+    // formData.append("userId", 0);
+    // formData.append("id", 0);
   }
   fetch(`http://localhost:5678/api/works/`, {
     method: "POST",
     headers: new Headers({
-      Authorization: `Bearer ${token}`,
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`,
     }),
     body: formData,
   })

@@ -141,6 +141,7 @@ function resetModal2Form () {
   let faImage = document.getElementById("fa-image");
   imageAdd.style.display = 'flex';
   insightImage.style.display = 'none';
+  faImage.setAttribute('./assets/icons/icone-grise.png');
   faImage.style.display = 'flex';
 }
 
